@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Comic Preview</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Create Another Comic</a>
+        <h1>🎨 Your Comic Preview</h1>
+
+        {% if error %}
+            <div class="card error-card">
+                <h3>⚠️ Error</h3>
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+
+        {% if layout %}
+            {% for panel in layout %}
+            <div class="comic-panel">
+                <h2>Panel {{ panel.panel }}: {{ panel.title }}</h2>
+                {% if panel.image_path %}
+                    <img src="{{ panel.image_path }}" alt="Panel {{ panel.panel }}" class="panel-image">
+                {% else %}
+                    <div class="image-missing">Image could not be generated for this panel.</div>
+                {% endif %}
+                {% if panel.scene_description %}
+                    <p class="scene-desc"><i>{{ panel.scene_description }}</i></p>
+                {% endif %}
+                <div class="narration">
+                    <p>{{ panel.text }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>
